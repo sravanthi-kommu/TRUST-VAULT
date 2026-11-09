@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Login</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eaf0f8;
+            margin: 0;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 320px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #0002;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .switch {
+            color: #2563eb;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>TrustVault</h1>
+    <p>Secure Document Management System</p>
+</header>
+
+<div class="container">
+    <h2 id="heading">User Login</h2>
+
+    <input type="text" id="name"
+           placeholder="Full Name" style="display:none">
+
+    <input type="email" id="email"
+           placeholder="Email Address">
+
+    <input type="password" id="password"
+           placeholder="Password">
+
+    <button onclick="submitForm()" id="submitBtn">
+        Login
+    </button>
+
+    <p id="message"></p>
+
+    <p id="switchText">
+        New user?
+        <span class="switch" onclick="toggleForm()">
+            Register here
+        </span>
+    </p>
+</div>
+
+<script>
+let isRegister = false;
+
+function toggleForm() {
+    isRegister = !isRegister;
+
+    document.getElementById("heading").innerText =
+        isRegister ? "User Registration" : "User Login";
+
+    document.getElementById("name").style.display =
+        isRegister ? "block" : "none";
+
+    document.getElementById("submitBtn").innerText =
+        isRegister ? "Register" : "Login";
+
+    document.getElementById("switchText").innerHTML =
+        isRegister
+        ? 'Already registered? <span class="switch" onclick="toggleForm()">Login here</span>'
+        : 'New user? <span class="switch" onclick="toggleForm()">Register here</span>';
+
+    document.getElementById("message").innerText = "";
+}
+
+function submitForm() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const name = document.getElementById("name").value.trim();
+
+    if (!email || !password || (isRegister && !name)) {
+        document.getElementById("message").innerText =
+            "Please fill all required fields.";
+        return;
+    }
+
+    if (password.length < 8) {
+        document.getElementById("message").innerText =
+            "Password must be at least 8 characters.";
+        return;
+    }
+
+    document.getElementById("message").innerText =
+        isRegister
+        ? "Registration demo completed! Backend is not connected yet."
+        : "Login demo completed! Backend is not connected yet.";
+}
+</script>
+
+</body>
+</html>
